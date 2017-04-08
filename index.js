@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const process = require('process');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 const port = 3000;
 const serverUrl = 'localhost';
@@ -11,14 +12,16 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', function(req, res){
+  let configFile = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+  
   res.render('pages/index', {
-    core: {
-      'title': 'NovelistJS',
-      'description': '',
-      'keywords': '',
-      'robots': '',
-      'author': '',
-      'favicon': ''
+    header: {
+      'title': configFile['title'],
+      'description': configFile['description'],
+      'keywords': configFile['keywords'],
+      'robots': configFile['robots'],
+      'author': configFile['author'],
+      'favicon': configFile['favicon']
     }
   });
 });

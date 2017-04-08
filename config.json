@@ -1,0 +1,8 @@
+{
+  "title": "NovelistJS",
+  "description": "Simple blog written in NodeJS",
+  "keywords": "nodejs, blog, novelist",
+  "robots": "ALLOW",
+  "author": "http://github.com/herbaciarz",
+  "favicon": "favicon.png"
+}
