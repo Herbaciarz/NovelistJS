@@ -10,22 +10,81 @@
   <meta name="author" content="<%=header.author%>">
   <meta name="robots" content="<%=header.robots%>" />
   <link rel="icon" href="<%=header.favicon%>">
+  <link rel="stylesheet" href="css/vendor/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/flat-ui.css">
+  <style>
+    h1,h2,h3,h4,h5 {
+      font: Helvetica, Arial, sans-serif;
+      font-weight: 100;
+    }
+    h5, .post-info{
+      color: #aaa;
+    }
+    .post-title {
+      margin-top: 0px;
+    }
+    .blog-title {
+
+    }
+    .blog-description {
+      color: #aaa;
+    }
+    .single-article {
+      margin-bottom: 80px;
+    }
+    .footer {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <div class="row">
+
+    <!-- header -->
+    <div class="row" style="margin-top: 200px;">
       <div class="col-md-8 col-md-offset-2">
         <center>
-        <% if(blog.logo){ %>
-          <a href="/"><img src="<%=blog.logo%>"></a>
-        <% } else { %>
-        <a href="/"><h1 style="font-weight: 900; font-family: Helvetica; font-size: 72px; letter-spacing: -8px;"><%=blog.title%></h1></a>
-        <% } %>
-        <h5 style="    color: rgba(52, 73, 94, 0.3);"><%=blog.description%></h5>
+          <a href="/">
+            <% if(blog.logo){ %>
+              <img src="<%=blog.logo%>">
+            <% } else { %>
+            <h1 class="blog-title"><%=blog.title%></h1>
+            <% } %>
+            <h5 class="blog-description"><%=blog.description%></h5>
+          </a>
         </center>
       </div>
     </div>
+
+    <!-- post section -->
+    <div class="row" style="margin-top: 100px;">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="single-article">
+          <a href="#">
+            <i class="post-info">March 21, 2016 by Herbaciarz</i>
+            <h3 class="post-title">Title</h3>
+          </a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto voluptatibus rerum assumenda repudiandae, nostrum. Necessitatibus, sapiente, omnis! Excepturi fugit numquam eveniet fuga reprehenderit quos odio, qui unde iusto impedit exercitationem, eos itaque voluptatibus modi! Eos aperiam non neque! Consequuntur aperiam recusandae quas architecto magni unde natus eum at ipsa commodi.
+          </p>
+          <a href="#" class="pull-right">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="row" style="margin-top: 100px;">
+      <div class="col-md-8 col-md-offset-2">
+        <hr>
+        <p class="footer" id="footer"> <%=blog.writter%></p>
+      </div>
+    </div>
+
+
   </div>
 </body>
+<script>
+  let date = new Date();
+  document.getElementById('footer').innerHTML = '&copy; ' + date.getFullYear() + document.getElementById('footer').innerHTML;
+</script>
 </html>
