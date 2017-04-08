@@ -1,0 +1,25 @@
+{
+  "name": "novelistjs",
+  "version": "1.0.0",
+  "description": "NovelistJS is a free, open source, self-hosted blog CMS written in NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "novelistjs"
+  },
+  "keywords": [
+    "blog",
+    "cms",
+    "nodejs"
+  ],
+  "author": "Herbaciarz",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  }
+}
