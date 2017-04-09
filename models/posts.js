@@ -48,6 +48,7 @@ module.exports = {
                 assert.equal(null, err);
                 console.log('Item inserted!');
             });
+            db.close();
         });
     },
     editPost: function () {
