@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const novelist = require('./models/novelist');
 const assert = require('assert');
-const posts = require('./models/posts');
+const post = require('./models/posts');
 
 // constants
 const port = 3000;
@@ -17,8 +17,7 @@ app.use(express.static('public'));
 
 // routing
 app.get('/', function (req, res) {
-    posts.getAllPosts(function (postsData) {
-        console.log(postsData);
+    post.getAllPosts(function (postsData) {
         res.render('pages/index', {header: novelist.headConfig(), blog: novelist.blogConfig(), postsData: postsData});
     });
 });

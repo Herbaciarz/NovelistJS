@@ -79,38 +79,38 @@
       </div>
     </div>
 
-    <% for(let el in postsData){ %>
-
     <!-- post section -->
+    <% for(let el of postsData){ %>
     <div class="row" style="margin-top: 100px;">
       <div class="col-md-8 col-md-offset-2">
         <div class="single-article">
-          <a href="post/<%=postsData[el].post_ID%>">
-            <i class="post-info"><%=postsData[el].date%> by <%=postsData[el].author%> | 0 comments</a> |
+          <a href="post/<%=el.post_ID%>">
+            <i class="post-info"><%=el.date%> by <%=el.author%> | 0 comments</a> |
 
-            <% let tagsArr = postsData[el].tags.split(',');
+            <% let tagsArr = el.tags.split(',');
               let tags = '';
               for(let tag of tagsArr){ %>
                 <a href="/tag/<%=tag%>"><%=tag%></a>,
               <% } %>
 
             </i>
-          <a href="post/<%=postsData[el].post_ID%>">
-            <h3 class="post-title"><%=postsData[el].title%></h3>
+          <a href="post/<%=el.post_ID%>">
+            <h3 class="post-title"><%=el.title%></h3>
           </a>
           <p>
-              <%=postsData[el].content%>
+              <%=el.content%>
           </p>
-          <a href="post/<%=postsData[el].post_ID%>" class="pull-right">Read more</a>
+          <a href="post/<%=el.post_ID%>" class="pull-right">Read more</a>
         </div>
       </div>
     </div>
     <% } %>
+
     <!-- footer -->
     <div class="row" style="margin-top: 100px;" padding: 0px;>
       <div class="col-md-8 col-md-offset-2">
         <hr>
-        <p class="footer" id="footer"> <%=blog.writter%> <br> <small><a href="">Admin Dashboard</a></small></p>
+        <p class="footer" id="footer"> <%=blog.writter%> <br> <small><a href="/admin/">Admin Dashboard</a></small></p>
       </div>
     </div>
 
