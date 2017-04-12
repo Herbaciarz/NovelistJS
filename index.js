@@ -1,24 +1,23 @@
 // packages and dependencies
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const novelist = require('./models/novelist');
-const assert = require('assert');
-const post = require('./models/posts');
+const Express = require('express');
+const app = Express();
+const BodyParser = require('body-parser');
+const Novelist = require('./models/novelist');
+const Post = require('./models/posts');
 
 // constants
 const port = 3000;
 const serverUrl = 'localhost';
 
 // config
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(BodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.use(Express.static('public'));
 
 // routing
 app.get('/', function (req, res) {
-    post.getAllPosts(function (postsData) {
-        res.render('pages/index', {header: novelist.headConfig(), blog: novelist.blogConfig(), postsData: postsData});
+    Post.getAllPosts(function (postsData) {
+        res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
     });
 });
 

@@ -1,16 +1,16 @@
-const mongo = require('mongodb');
-const assert = require('assert');
+const Mongo = require('mongodb');
+const Assert = require('Assert');
 
 const mongoUrl = 'mongodb://localhost:27017/test';
 
 module.exports = {
     getAllPosts: function (callback) {
         var postsData = [];
-        mongo.connect(mongoUrl, function (err, db) {
-            assert.equal(null, err);
+        Mongo.connect(mongoUrl, function (err, db) {
+            Assert.equal(null, err);
             let cursor = db.collection('posts').find({});
             cursor.forEach(function (doc, err) {
-                assert.equal(null, err);
+                Assert.equal(null, err);
                 postsData.push(doc);
             }, function () {
                 db.close();
@@ -20,11 +20,11 @@ module.exports = {
     },
     getSinglePost: function (postId) {
         var postData = [];
-        mongo.connect(mongoUrl, function (err, db) {
-            assert.equal(null, err);
+        Mongo.connect(mongoUrl, function (err, db) {
+            Assert.equal(null, err);
             let cursor = db.collection('posts').find({postId: postId});
             cursor.forEach(function (doc, err) {
-                assert.equal(null, err);
+                Assert.equal(null, err);
                 postData.push(doc);
             }, function () {
                 db.close();
@@ -43,10 +43,10 @@ module.exports = {
             tags: tags
         };
 
-        mongo.connect(mongoUrl, function (err, db) {
-            assert.equal(null, err);
+        Mongo.connect(mongoUrl, function (err, db) {
+            Assert.equal(null, err);
             db.collection('posts').insertOne(postData, function (err, result) {
-                assert.equal(null, err);
+                Assert.equal(null, err);
                 console.log('Item inserted!');
             });
             db.close();
@@ -59,29 +59,3 @@ module.exports = {
         
     }
 };
-
-//
-// var item = {
-//     title: "asdasdasdasdasd",
-//     content: "asdasd",
-//     count: 123
-// };
-//
-// mongo.connect(mongoUrl, function (err, db) {
-//     assert.equal(null, err);
-//     db.collection('testc').insertOne(item, function (err, result) {
-//         assert.equal(null, err);
-//         console.log('Item inserted!');
-//     });
-//
-//     let docs = [];
-//     let cursor = db.collection('testc').find();
-//     cursor.forEach(function (doc, err) {
-//         assert.equal(null, err);
-//         docs.push(doc);
-//     }, function () {
-//         db.close();
-//         console.log(docs);
-//     });
-//
-// });

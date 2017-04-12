@@ -86,13 +86,11 @@
         <div class="single-article">
           <a href="post/<%=el.post_ID%>">
             <i class="post-info"><%=el.date%> by <%=el.author%> | 0 comments</a> |
-
             <% let tagsArr = el.tags.split(',');
               let tags = '';
               for(let tag of tagsArr){ %>
                 <a href="/tag/<%=tag%>"><%=tag%></a>,
               <% } %>
-
             </i>
           <a href="post/<%=el.post_ID%>">
             <h3 class="post-title"><%=el.title%></h3>
