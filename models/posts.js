@@ -4,33 +4,34 @@ const assert = require('assert');
 const mongoUrl = 'mongodb://localhost:27017/test';
 
 module.exports = {
-    getAllPosts: function () {
+    getAllPosts: function (callback) {
         var postsData = [];
         mongo.connect(mongoUrl, function (err, db) {
             assert.equal(null, err);
-            let cursor = db.collection('testc').find();
+            let cursor = db.collection('posts').find({});
             cursor.forEach(function (doc, err) {
                 assert.equal(null, err);
                 postsData.push(doc);
             }, function () {
                 db.close();
+                callback(postsData);
             });
         });
-        return postsData;
     },
     getSinglePost: function (postId) {
         var postData = [];
         mongo.connect(mongoUrl, function (err, db) {
             assert.equal(null, err);
-            let cursor = db.collection('testc').find({postId: postId});
+            let cursor = db.collection('posts').find({postId: postId});
             cursor.forEach(function (doc, err) {
                 assert.equal(null, err);
                 postData.push(doc);
             }, function () {
                 db.close();
+                return postData;
             });
         });
-        return postData;
+
     },
     addPost: function (date, author, title, content, tags) {
         var postData = {
@@ -44,7 +45,7 @@ module.exports = {
 
         mongo.connect(mongoUrl, function (err, db) {
             assert.equal(null, err);
-            db.collection('testc').insertOne(postData, function (err, result) {
+            db.collection('posts').insertOne(postData, function (err, result) {
                 assert.equal(null, err);
                 console.log('Item inserted!');
             });

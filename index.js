@@ -17,7 +17,10 @@ app.use(express.static('public'));
 
 // routing
 app.get('/', function (req, res) {
-    res.render('pages/index', {header: novelist.headConfig(), blog: novelist.blogConfig()});
+    posts.getAllPosts(function (postsData) {
+        console.log(postsData);
+        res.render('pages/index', {header: novelist.headConfig(), blog: novelist.blogConfig(), postsData: postsData});
+    });
 });
 
 // 404 error
