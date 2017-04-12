@@ -79,21 +79,29 @@
       </div>
     </div>
 
-    <% for(var el in postsData){ %>
+    <% for(let el in postsData){ %>
 
     <!-- post section -->
     <div class="row" style="margin-top: 100px;">
       <div class="col-md-8 col-md-offset-2">
         <div class="single-article">
-          <a href="#">
-            <i class="post-info">March 21, 2016 by Herbaciarz | 0 comments</a> | <a href="#2">bike</a>, <a href="#2">mountain</a>, <a href="#2">skiing</a>, <a href="#2">sport</a>,</i>
-          <a href="#">
-            <h3 class="post-title">Title</h3>
+          <a href="post/<%=postsData[el].post_ID%>">
+            <i class="post-info"><%=postsData[el].date%> by <%=postsData[el].author%> | 0 comments</a> |
+
+            <% let tagsArr = postsData[el].tags.split(',');
+              let tags = '';
+              for(let tag of tagsArr){ %>
+                <a href="/tag/<%=tag%>"><%=tag%></a>,
+              <% } %>
+
+            </i>
+          <a href="post/<%=postsData[el].post_ID%>">
+            <h3 class="post-title"><%=postsData[el].title%></h3>
           </a>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto voluptatibus rerum assumenda repudiandae, nostrum. Necessitatibus, sapiente, omnis! Excepturi fugit numquam eveniet fuga reprehenderit quos odio, qui unde iusto impedit exercitationem, eos itaque voluptatibus modi! Eos aperiam non neque! Consequuntur aperiam recusandae quas architecto magni unde natus eum at ipsa commodi.
+              <%=postsData[el].content%>
           </p>
-          <a href="#" class="pull-right">Read more</a>
+          <a href="post/<%=postsData[el].post_ID%>" class="pull-right">Read more</a>
         </div>
       </div>
     </div>
