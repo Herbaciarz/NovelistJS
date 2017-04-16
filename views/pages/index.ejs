@@ -84,7 +84,7 @@
     <div class="row" style="margin-top: 100px;">
       <div class="col-md-8 col-md-offset-2">
         <div class="single-article">
-          <a href="post/<%=el.post_ID%>">
+          <a href="post/<%=el.postID%>">
             <i class="post-info"><%=el.date%> by <%=el.author%> | 0 comments</a> |
             <% let tagsArr = el.tags.split(',');
               let tags = '';
@@ -92,13 +92,13 @@
                 <a href="/tag/<%=tag%>"><%=tag%></a>,
               <% } %>
             </i>
-          <a href="post/<%=el.post_ID%>">
+          <a href="post/<%=el.postID%>">
             <h3 class="post-title"><%=el.title%></h3>
           </a>
           <p>
               <%=el.content%>
           </p>
-          <a href="post/<%=el.post_ID%>" class="pull-right">Read more</a>
+          <a href="post/<%=el.postID%>" class="pull-right">Read more</a>
         </div>
       </div>
     </div>
