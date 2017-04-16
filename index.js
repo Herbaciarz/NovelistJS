@@ -16,13 +16,9 @@ app.use(Express.static('public'));
 
 // routing
 app.get('/', function (req, res) {
-    Post.removePost(23, function(){
-        Post.getAllPosts(function (postsData) {
-            res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
-        });
+    Post.getAllPosts(function (postsData) {
+        res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
     });
-
-
 });
 
 // 404 error
