@@ -16,13 +16,12 @@ app.use(Express.static('public'));
 
 // routing
 app.get('/', function (req, res) {
-    // Post.addPost('12:12:12', 'XDD', 'tytul', 'lorem ipsum casdansdjansdjnajsd', '123,asdmk,asd');
-    Post.addPost('98765512371238', 'asdasd', 'NAJSDNJANSDJNASDJNSJDNASJDN', 'NAJSNDJNASDJNASJDN SSJDN JSDNJA',
-        'mnmads,asdnjnjasd,asdasd', function () {
-            Post.getAllPosts(function (postsData) {
-                res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
-            });
+    Post.removePost(23, function(){
+        Post.getAllPosts(function (postsData) {
+            res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
         });
+    });
+
 
 });
 

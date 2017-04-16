@@ -7,7 +7,7 @@ const mongoUrl = 'mongodb://localhost:27017/test';
 module.exports = {
     /**
      * Get all posts from the blog
-     * @param callback
+     * @param {callback} callback
      */
     getAllPosts: function (callback) {
         var postsData = [];
@@ -27,8 +27,9 @@ module.exports = {
     /**
      * Get data about one, specific post
      * @param {number} postId
+     * @param {callback} callback
      */
-    getSinglePost: function (postId) {
+    getSinglePost: function (postId, callback) {
         var postData = [];
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
@@ -38,7 +39,7 @@ module.exports = {
                 postData.push(doc);
             }, function () {
                 db.close();
-                return postData;
+                callback(postData);
             });
         });
     },
@@ -69,9 +70,9 @@ module.exports = {
                 db.collection('posts').insertOne(postData, function (err, result) {
                     Assert.equal(null, err);
                     console.log('Post inserted!');
+                    callback();
                 });
                 db.close();
-                callback();
             });
         });
     },
@@ -84,8 +85,9 @@ module.exports = {
      * @param {string} title
      * @param {string} content
      * @param {string} tags
+     * @param {callback} callback
      */
-    editPost: function (postID, date, author, title, content, tags) {
+    editPost: function (postID, date, author, title, content, tags, callback) {
         var postData = {
             postID: postID,
             date: date,
@@ -100,12 +102,27 @@ module.exports = {
             db.collection('posts').updateOne({'postID': postID}, postData, function (err, result) {
                 Assert.equal(null, err);
                 console.log('Post updated!');
+                callback();
             });
             db.close();
         });
     },
 
-    removePost: function () {
+    /**
+     * Remove specific post
+     * @param {number} postID
+     * @param {callback} callback
+     */
+    removePost: function (postID, callback) {
+        Mongo.connect(mongoUrl, function(err, db){
+           Assert.equal(null, err);
+           db.collection('posts').remove({'postID': postID}, function (err, result) {
+               Assert.equal(null, err);
+               console.log('Removed!');
+               callback();
+           });
+           db.close();
+        });
         
     }
 };
