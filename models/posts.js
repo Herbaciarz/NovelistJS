@@ -33,13 +33,9 @@ module.exports = {
         var postData = [];
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
-            let cursor = db.collection('posts').find({postId: postId});
-            cursor.forEach(function (doc, err) {
-                Assert.equal(null, err);
-                postData.push(doc);
-            }, function () {
+            let cursor = db.collection('posts').findOne({postId: postId}, function(err, doc){
                 db.close();
-                callback(postData);
+                callback(doc);
             });
         });
     },
@@ -88,17 +84,16 @@ module.exports = {
      * @param {callback} callback
      */
     editPost: function (postID, date, author, title, content, tags, callback) {
-        var postData = {
-            postID: postID,
-            date: date,
-            author: author,
-            title: title,
-            content: content,
-            tags: tags
-        };
-
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
+            let postData = {
+                postID: postID,
+                date: date,
+                author: author,
+                title: title,
+                content: content,
+                tags: tags
+            };
             db.collection('posts').updateOne({'postID': postID}, postData, function (err, result) {
                 Assert.equal(null, err);
                 console.log('Post updated!');
@@ -116,7 +111,7 @@ module.exports = {
     removePost: function (postID, callback) {
         Mongo.connect(mongoUrl, function(err, db){
            Assert.equal(null, err);
-           db.collection('posts').remove({'postID': postID}, function (err, result) {
+           db.collection('posts').removeOne({'postID': postID}, function (err, result) {
                Assert.equal(null, err);
                console.log('Removed!');
                callback();

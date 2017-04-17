@@ -10,8 +10,8 @@
   <meta name="author" content="<%=header.author%>">
   <meta name="robots" content="<%=header.robots%>" />
   <link rel="icon" href="<%=header.favicon%>">
-  <link rel="stylesheet" href="css/vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/flat-ui.css">
+  <link rel="stylesheet" href="../css/vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/flat-ui.css">
   <style>
     h1,h2,h3,h4,h5 {
       font: Helvetica, Arial, sans-serif;
@@ -95,9 +95,15 @@
           <a href="post/<%=el.postID%>">
             <h3 class="post-title"><%=el.title%></h3>
           </a>
-          <p>
-              <%=el.content%>
-          </p>
+          <div class="content">
+              <%
+                var yourString = el.content;
+                var maxLength = 300
+                var trimmedString = yourString.substr(0, maxLength);
+                trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))
+              %>
+            <%=trimmedString%>...
+          </div>
           <a href="post/<%=el.postID%>" class="pull-right">Read more</a>
         </div>
       </div>

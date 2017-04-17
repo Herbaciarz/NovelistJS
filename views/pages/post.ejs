@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%=header.title%></title>
+    <meta name="description" content="<%=header.description%>">
+    <meta name="keywords" content="<%=header.keywords%>">
+    <meta name="author" content="<%=header.author%>">
+    <meta name="robots" content="<%=header.robots%>" />
+    <link rel="icon" href="<%=header.favicon%>">
+    <link rel="stylesheet" href="../css/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/flat-ui.css">
+    <style>
+        h1,h2,h3,h4,h5 {
+            font: Helvetica, Arial, sans-serif;
+            font-weight: 100;
+        }
+        h5, .post-info{
+            color: #aaa;
+        }
+        .post-title {
+            margin-top: 0px;
+            font-weight: 600;
+        }
+        .blog-title {
+
+        }
+        .blog-description {
+            color: #aaa;
+        }
+        .single-article {
+            margin-bottom: 80px;
+        }
+        .footer {
+            text-align: center;
+        }
+        .fui {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- header -->
+    <div class="row" style="margin-top: 200px;">
+        <div class="col-md-8 col-md-offset-2">
+            <center>
+                <a href="/">
+                    <% if(blog.logo){ %>
+                    <img src="<%=blog.logo%>">
+                    <% } else { %>
+                    <h1 class="blog-title"><b><%=blog.title%></b></h1>
+                    <% } %>
+                    <h5 class="blog-description"><%=blog.description%></h5>
+                </a>
+
+                <% if(blog.facebook){ %>
+                <a target="_blank" href="<%=blog.facebook%>"><span class="fui fui-facebook"></span></a>
+                <% } %>
+                <% if(blog.twitter){ %>
+                <a target="_blank" href="<%=blog.twitter%>"><span class="fui fui-twitter"></span></a>
+                <% } %>
+                <% if(blog.instagram){ %>
+                <a target="_blank" href="<%=blog.instagram%>"><span class="fui fui-instagram"></span></a>
+                <% } %>
+                <% if(blog.behance){ %>
+                <a target="_blank" href="<%=blog.behance%>"><span class="fui fui-behance"></span></a>
+                <% } %>
+                <% if(blog.github){ %>
+                <a target="_blank" href="<%=blog.github%>"><span class="fui fui-github"></span></a>
+                <% } %>
+                <% if(blog.linkedin){ %>
+                <a target="_blank" href="<%=blog.linkedin%>"><span class="fui fui-linkedin"></span></a>
+                <% } %>
+            </center>
+        </div>
+    </div>
+
+    <!-- header -->
+    <div class="row" style="margin-top: 200px;">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="#">
+                <i class="post-info"><%=post.date%> by <%=post.author%> |
+                <%
+                    let tagsArr = post.tags.split(',');
+                    let tags = '';
+                    for(let tag of tagsArr){
+                %>
+                    <a href="/tag/<%=tag%>"><%=tag%></a>,
+                <% } %>
+            </i>
+
+            <a href="#">
+                <h3 class="post-title"><%=post.title%></h3>
+            </a>
+            <div class="content">
+                <%-post.content%>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="row" style="margin-top: 100px; padding: 0px;">
+        <div class="col-md-8 col-md-offset-2">
+            <hr>
+            <p class="footer" id="footer"> <%=blog.writter%> <br> <small><a href="/admin/">Admin Dashboard</a></small></p>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<script>
+    let date = new Date();
+    document.getElementById('footer').innerHTML = '&copy; ' + date.getFullYear() + document.getElementById('footer').innerHTML;
+</script>
+</html>

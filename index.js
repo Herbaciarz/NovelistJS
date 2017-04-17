@@ -20,6 +20,12 @@ app.get('/', function (req, res) {
         res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
     });
 });
+app.get('/post/:id', function (req, res) {
+    Post.getSinglePost(req.query.id, function (postData) {
+        console.log(postData);
+        res.render('pages/post', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), post: postData});
+    });
+});
 
 // 404 error
 app.get('*', function (req, res) {
