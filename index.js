@@ -8,6 +8,7 @@ const Post = require('./models/posts');
 // constants
 const port = 3000;
 const serverUrl = 'localhost';
+const themeName = 'flatui';
 
 // config
 app.use(BodyParser.urlencoded({extended: true}));
@@ -17,13 +18,13 @@ app.use(Express.static('public'));
 // routing
 app.get('/', function (req, res) {
     Post.getAllPosts(function (postsData) {
-        res.render('pages/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
+        res.render(themeName + '/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
     });
 });
 app.get('/post/:id', function (req, res) {
     Post.getSinglePost(req.query.id, function (postData) {
         console.log(postData);
-        res.render('pages/post', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), post: postData});
+        res.render(themeName + '/post', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), post: postData});
     });
 });
 
