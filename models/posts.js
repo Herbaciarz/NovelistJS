@@ -34,7 +34,6 @@ module.exports = {
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
             let cursor = db.collection('posts').findOne({'postID': postId}, function(err, doc){
-                console.log(doc);
                 db.close();
                 callback(doc);
             });

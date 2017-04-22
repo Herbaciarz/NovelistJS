@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%=header.title%></title>
-    <meta name="description" content="<%=header.description%>">
-    <meta name="keywords" content="<%=header.keywords%>">
-    <meta name="author" content="<%=header.author%>">
-    <meta name="robots" content="<%=header.robots%>" />
-    <link rel="icon" href="<%=header.favicon%>">
+    <title><%=blogConfig.title%></title>
+    <meta name="description" content="<%=blogConfig.description%>">
+    <meta name="keywords" content="<%=blogConfig.keywords%>">
+    <meta name="author" content="<%=blogConfig.author%>">
+    <meta name="robots" content="<%=blogConfig.robots%>" />
+    <link rel="icon" href="<%=blogConfig.favicon%>">
     <link rel="stylesheet" href="../flatui/css/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../flatui/css/flat-ui.css">
     <style>
@@ -49,31 +49,31 @@
         <div class="col-md-8 col-md-offset-2">
             <center>
                 <a href="/">
-                    <% if(blog.logo){ %>
-                    <img src="<%=blog.logo%>">
+                    <% if(blogConfig.logo){ %>
+                    <img src="<%=blogConfig.logo%>">
                     <% } else { %>
-                    <h1 class="blog-title"><b><%=blog.title%></b></h1>
+                    <h1 class="blog-title"><b><%=blogConfig.title%></b></h1>
                     <% } %>
-                    <h5 class="blog-description"><%=blog.description%></h5>
+                    <h5 class="blog-description"><%=blogConfig.description%></h5>
                 </a>
 
-                <% if(blog.facebook){ %>
-                <a target="_blank" href="<%=blog.facebook%>"><span class="fui fui-facebook"></span></a>
+                <% if(blogConfig.facebook){ %>
+                <a target="_blank" href="<%=blogConfig.facebook%>"><span class="fui fui-facebook"></span></a>
                 <% } %>
-                <% if(blog.twitter){ %>
-                <a target="_blank" href="<%=blog.twitter%>"><span class="fui fui-twitter"></span></a>
+                <% if(blogConfig.twitter){ %>
+                <a target="_blank" href="<%=blogConfig.twitter%>"><span class="fui fui-twitter"></span></a>
                 <% } %>
-                <% if(blog.instagram){ %>
-                <a target="_blank" href="<%=blog.instagram%>"><span class="fui fui-instagram"></span></a>
+                <% if(blogConfig.instagram){ %>
+                <a target="_blank" href="<%=blogConfig.instagram%>"><span class="fui fui-instagram"></span></a>
                 <% } %>
-                <% if(blog.behance){ %>
-                <a target="_blank" href="<%=blog.behance%>"><span class="fui fui-behance"></span></a>
+                <% if(blogConfig.behance){ %>
+                <a target="_blank" href="<%=blogConfig.behance%>"><span class="fui fui-behance"></span></a>
                 <% } %>
-                <% if(blog.github){ %>
-                <a target="_blank" href="<%=blog.github%>"><span class="fui fui-github"></span></a>
+                <% if(blogConfig.github){ %>
+                <a target="_blank" href="<%=blogConfig.github%>"><span class="fui fui-github"></span></a>
                 <% } %>
-                <% if(blog.linkedin){ %>
-                <a target="_blank" href="<%=blog.linkedin%>"><span class="fui fui-linkedin"></span></a>
+                <% if(blogConfig.linkedin){ %>
+                <a target="_blank" href="<%=blogConfig.linkedin%>"><span class="fui fui-linkedin"></span></a>
                 <% } %>
             </center>
         </div>
@@ -106,7 +106,7 @@
     <div class="row" style="margin-top: 100px; padding: 0px;">
         <div class="col-md-8 col-md-offset-2">
             <hr>
-            <p class="footer" id="footer"> <%=blog.writter%> <br> <small><a href="/admin/">Admin Dashboard</a></small></p>
+            <p class="footer" id="footer"> <%=blogConfig.writter%> <br> <small><a href="/admin/">Admin Dashboard</a></small></p>
         </div>
     </div>
 

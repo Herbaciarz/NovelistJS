@@ -16,16 +16,16 @@ app.set('view engine', 'ejs');
 app.use(Express.static('public'));
 
 // routing
+app.get('/post/:id', function (req, res) {
+    Post.getSinglePost(req.params.id, function (postData) {
+        res.render(themeName + '/post', {blogConfig: Novelist.getConfig(), post: postData});
+    });
+});
+
 app.get('/', function (req, res) {
     Post.getAllPosts(function (postsData) {
         postsData.reverse();
-        res.render(themeName + '/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
-    });
-});
-app.get('/post/:id', function (req, res) {
-    Post.getSinglePost(req.params.id, function (postData) {
-        console.log(postData);
-        res.render(themeName + '/post', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), post: postData});
+        res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
     });
 });
 

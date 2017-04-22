@@ -1,8 +1,16 @@
 {
   "title": "NovelistJS",
-  "description": "Simple blog written in NodeJS",
   "keywords": "nodejs, blog, novelist",
   "robots": "ALLOW",
   "author": "http://github.com/herbaciarz",
-  "favicon": "favicon.png"
+  "favicon": "favicon.png",
+  "description": "Simple blog engine written in NodeJS",
+  "writter": "Herbaciarz",
+  "logo": "",
+  "facebook":"http://facebook.com",
+  "twitter":"http://twitter.com",
+  "linkedin":"http://linkedin.com",
+  "instagram":"http://instagram.com",
+  "behance":"http://behance.com",
+  "github":"http://github.com"
 }
