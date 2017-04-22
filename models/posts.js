@@ -33,7 +33,8 @@ module.exports = {
         var postData = [];
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
-            let cursor = db.collection('posts').findOne({postId: postId}, function(err, doc){
+            let cursor = db.collection('posts').findOne({'postID': postId}, function(err, doc){
+                console.log(doc);
                 db.close();
                 callback(doc);
             });

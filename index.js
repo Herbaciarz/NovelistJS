@@ -18,11 +18,12 @@ app.use(Express.static('public'));
 // routing
 app.get('/', function (req, res) {
     Post.getAllPosts(function (postsData) {
+        postsData.reverse();
         res.render(themeName + '/index', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), postsData: postsData});
     });
 });
 app.get('/post/:id', function (req, res) {
-    Post.getSinglePost(req.query.id, function (postData) {
+    Post.getSinglePost(req.params.id, function (postData) {
         console.log(postData);
         res.render(themeName + '/post', {header: Novelist.headConfig(), blog: Novelist.blogConfig(), post: postData});
     });
