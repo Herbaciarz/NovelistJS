@@ -4,6 +4,7 @@ const app = Express();
 const BodyParser = require('body-parser');
 const Novelist = require('./models/novelist');
 const Post = require('./models/posts');
+const Recaptcha = require('express-recaptcha');
 
 // constants
 const port = 3000;
@@ -14,11 +15,26 @@ const themeName = 'flatui';
 app.use(BodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(Express.static('public'));
+Recaptcha.init('6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd', '6LddTh4UAAAAAEbCc0BvH85DbXBI7AAGDcYnMR_6');
 
 // routing
 app.get('/post/:id', function (req, res) {
     Post.getSinglePost(req.params.id, function (postData) {
         res.render(themeName + '/post', {blogConfig: Novelist.getConfig(), post: postData, postID: req.params.id});
+    });
+});
+
+app.post('/addcomment/', function(req, res){
+    Recaptcha.verify(req, function(error) {
+        if (!error) {
+            console.log('Captcha approved');
+            Post.addComment(req.body.postID, req.body.author, req.body.content, req.connection.remoteAddress, function(){
+                res.redirect('/post/' + req.body.postID);
+            });
+        } else {
+            console.log('Captcha denied');
+            res.redirect('/post/' + req.body.postID);
+        }
     });
 });
 

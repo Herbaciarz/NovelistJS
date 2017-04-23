@@ -23,12 +23,19 @@
                     }
                 %>
                 <small><%-timeConverter(parseInt(post.comments[index].cID))%></small><br>
-
                 <i> <%-post.comments[index].content%> </i>
             </div>
         </div>
  <%
     }
  %>
+        <form action="/addcomment/" method="post">
+            <textarea cols="30" rows="10" class="form-control" placeholder="Put your comment here" name="content" required></textarea>
+            <input type="text" class="form-control" name="author" placeholder="Your name" style="margin-top: 20px;" required>
+            <div class="g-recaptcha" data-sitekey="6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd" style="margin-top: 20px;"></div>
+            <input type="text" style="visibility: hidden;" hidden value="<%-postID%>" name="postID">
+            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Send</button>
+        </form>
+        
     </div>
 </div>
