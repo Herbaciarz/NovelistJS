@@ -85,7 +85,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="single-article">
           <a href="post/<%=post.postID%>">
-            <i class="post-info"><%=post.date%> by <%=post.author%> | 0 comments</a> |
+            <i class="post-info"><%=post.date%> by <%=post.author%> | <%=post.comments.length%> comments</a> |
             <% let tagsArr = post.tags.split(',');
               let tags = '';
               for(let tag of tagsArr){ %>
