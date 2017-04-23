@@ -54,14 +54,15 @@ module.exports = {
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
             AutoIncrement.getNextSequence(db, 'posts', function(err, autoIndex){
-                Assert.equal(err);
+                Assert.equal(null, err);
                 let postData = {
                     postID: autoIndex,
                     date: date,
                     author: author,
                     title: title,
                     content: content,
-                    tags: tags
+                    tags: tags,
+                    comments: []
                 };
                 db.collection('posts').insertOne(postData, function (err, result) {
                     Assert.equal(null, err);
@@ -118,6 +119,31 @@ module.exports = {
            });
            db.close();
         });
-        
+    },
+
+    /**
+     * Add comment to specific post
+     * @param {string} postID
+     * @param {string} author
+     * @param {string} content
+     * @param {string} ip
+     * @param {callback} callback
+     */
+    addComment: function (postID, author, content, ip, callback) {
+        Mongo.connect(mongoUrl, function (err, db) {
+            Assert.equal(null, err);
+            let postData = {
+                cID: (((new Date).getTime())+''),
+                author: author,
+                content: content,
+                ip: ip
+            };
+            db.collection('posts').updateOne({postID: postID}, {$push: {"comments": postData}}, function (err, result) {
+                Assert.equal(null, err);
+                console.log('Comment inserted!');
+                callback();
+            });
+            db.close();
+        });
     }
 };
