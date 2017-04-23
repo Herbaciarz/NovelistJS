@@ -2,6 +2,33 @@
 <div class="row" style="margin-top: 100px; padding: 0px;">
     <div class="col-md-8 col-md-offset-2">
         <hr>
-        <%=postID%>
+ <%
+    for (index in post.comments){
+ %>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4><%-post.comments[index].author%></h4>
+                <%
+                    function timeConverter(UNIX_timestamp){
+                        var a = new Date(UNIX_timestamp);
+                        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                        var year = a.getFullYear();
+                        var month = months[a.getMonth()];
+                        var date = a.getDate();
+                        var hour = a.getHours();
+                        var min = a.getMinutes();
+                        var sec = a.getSeconds();
+                        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+                        return time;
+                    }
+                %>
+                <small><%-timeConverter(parseInt(post.comments[index].cID))%></small><br>
+
+                <i> <%-post.comments[index].content%> </i>
+            </div>
+        </div>
+ <%
+    }
+ %>
     </div>
 </div>
