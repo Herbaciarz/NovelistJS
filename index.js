@@ -18,7 +18,7 @@ app.use(Express.static('public'));
 // routing
 app.get('/post/:id', function (req, res) {
     Post.getSinglePost(req.params.id, function (postData) {
-        res.render(themeName + '/post', {blogConfig: Novelist.getConfig(), post: postData});
+        res.render(themeName + '/post', {blogConfig: Novelist.getConfig(), post: postData, postID: req.params.id});
     });
 });
 
