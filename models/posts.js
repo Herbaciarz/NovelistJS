@@ -23,6 +23,7 @@ module.exports = {
             });
         });
     },
+    
     /**
      * Get all posts from the blog with a specific tag
      * @param {string} tag
