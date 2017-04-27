@@ -24,6 +24,13 @@ app.get('/post/:id', function (req, res) {
     });
 });
 
+app.get('/tag/:tag', function (req, res) {
+    Post.getAllPostsWithTag(req.params.tag, function (postsData) {
+        postsData.reverse();
+        res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
+    });
+});
+
 app.post('/addcomment/', function(req, res){
     Recaptcha.verify(req, function(error) {
         if (!error) {

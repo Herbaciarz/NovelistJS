@@ -23,6 +23,26 @@ module.exports = {
             });
         });
     },
+    /**
+     * Get all posts from the blog with a specific tag
+     * @param {string} tag
+     * @param {callback} callback
+     */
+    getAllPostsWithTag: function(tag, callback){
+        var postsData = [];
+        Mongo.connect(mongoUrl, function(err, db){
+           Assert.equal(null, err);
+            let regexSearch = new RegExp(tag);
+           let cursor = db.collection('posts').find({'tags': regexSearch});
+            cursor.forEach(function (doc, err) {
+                Assert.equal(null, err);
+                postsData.push(doc);
+            }, function () {
+                db.close();
+                callback(postsData);
+            });
+        });
+    },
 
     /**
      * Get data about one, specific post
