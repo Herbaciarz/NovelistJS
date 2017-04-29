@@ -40,6 +40,10 @@ app.get('/tag/:tag', function (req, res) {
     });
 });
 
+app.get('/login', function (req, res) {
+    res.render(themeName + '/login', {blogConfig: Novelist.getConfig()});
+});
+
 app.get('/admin', function (req, res) {
     if(req.session.isAdmin){
         res.redirect('/dashboard');
@@ -73,6 +77,10 @@ app.get('/', function (req, res) {
 
 // 404 error
 app.get('*', function (req, res) {
+    res.status(404).send('404 File not found');
+});
+
+app.post('*', function (req, res) {
     res.status(404).send('404 File not found');
 });
 
