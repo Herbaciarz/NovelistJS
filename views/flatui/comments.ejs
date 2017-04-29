@@ -7,7 +7,7 @@
  %>
         <div class="panel panel-default">
             <div class="panel-body">
-                <h4><%-post.comments[index].author%></h4>
+                <h4><%=post.comments[index].author%></h4>
                 <%
                     function timeConverter(UNIX_timestamp){
                         var a = new Date(UNIX_timestamp);
@@ -22,8 +22,8 @@
                         return time;
                     }
                 %>
-                <small><%-timeConverter(parseInt(post.comments[index].cID))%></small><br>
-                <i> <%-post.comments[index].content%> </i>
+                <small><%=timeConverter(parseInt(post.comments[index].cID))%></small><br>
+                <i> <%=post.comments[index].content%> </i>
             </div>
         </div>
  <%
