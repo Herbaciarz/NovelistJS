@@ -5,6 +5,7 @@ const BodyParser = require('body-parser');
 const Novelist = require('./models/novelist');
 const Post = require('./models/posts');
 const Recaptcha = require('express-recaptcha');
+const Session = require('express-session');
 
 // constants
 const port = 3000;
@@ -15,7 +16,15 @@ const themeName = 'flatui';
 app.use(BodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(Express.static('public'));
+app.use(Session({
+    secret: 'novelistjs',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
+}));
+
 Recaptcha.init('6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd', '6LddTh4UAAAAAEbCc0BvH85DbXBI7AAGDcYnMR_6');
+
 
 // routing
 app.get('/post/:id', function (req, res) {
@@ -29,6 +38,14 @@ app.get('/tag/:tag', function (req, res) {
         postsData.reverse();
         res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
     });
+});
+
+app.get('/admin', function (req, res) {
+    if(req.session.isAdmin){
+        res.redirect('/dashboard');
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.post('/addcomment/', function(req, res){
@@ -48,6 +65,8 @@ app.post('/addcomment/', function(req, res){
 app.get('/', function (req, res) {
     Post.getAllPosts(function (postsData) {
         postsData.reverse();
+        // req.session.name = '';
+        // res.send(req.session.name);
         res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
     });
 });
