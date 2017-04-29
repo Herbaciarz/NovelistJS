@@ -8,5 +8,21 @@ module.exports = {
     getConfig: function() {
         let configFile = JSON.parse(Fs.readFileSync('./config.json', 'utf8'));
         return configFile;
+    },
+
+    /**
+     * Check login and password and try to login
+     * @param login
+     * @param password
+     * @return {boolean} success
+     */
+    tryLogin: function(login, password) {
+        let account = JSON.parse(Fs.readFileSync('./account.json', 'utf8'));
+
+        if(account[login] === password){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

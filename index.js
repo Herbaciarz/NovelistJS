@@ -6,6 +6,7 @@ const Novelist = require('./models/novelist');
 const Post = require('./models/posts');
 const Recaptcha = require('express-recaptcha');
 const Session = require('express-session');
+const Crypto = require('crypto');
 
 // constants
 const port = 3000;
@@ -18,9 +19,9 @@ app.set('view engine', 'ejs');
 app.use(Express.static('public'));
 app.use(Session({
     secret: 'novelistjs',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: {secure: false}
+    cookie: {secure: false,}
 }));
 
 Recaptcha.init('6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd', '6LddTh4UAAAAAEbCc0BvH85DbXBI7AAGDcYnMR_6');
@@ -40,16 +41,47 @@ app.get('/tag/:tag', function (req, res) {
     });
 });
 
+app.get('/dashboard', function (req, res) {
+    if(req.session.logged){
+        res.render(themeName + '/dashboard', {blogConfig: Novelist.getConfig()})
+    } else {
+        res.redirect('/admin');
+    }
+});
+
 app.get('/login', function (req, res) {
-    res.render(themeName + '/login', {blogConfig: Novelist.getConfig()});
+    console.log(req.cookie);
+    if(req.session.logged){
+        res.redirect('/dashboard');
+    } else {
+        res.render(themeName + '/login', {blogConfig: Novelist.getConfig()});
+    }
+});
+
+app.post('/login', function (req, res) {
+    Recaptcha.verify(req, function(error) {
+        if (!error) {
+            console.log('Captcha approved');
+            let password = Crypto.createHash('sha256').update(req.body.password).digest('hex');
+            req.session.logged = Novelist.tryLogin(req.body.login, password);
+            res.redirect('/admin');
+        } else {
+            res.redirect('/admin');
+        }
+    });
 });
 
 app.get('/admin', function (req, res) {
-    if(req.session.isAdmin){
+    if(req.session.logged){
         res.redirect('/dashboard');
     } else {
         res.redirect('/login');
     }
+});
+
+app.get('/logout', function (req, res) {
+    req.session.logged = null;
+    res.redirect('/login');
 });
 
 app.post('/addcomment/', function(req, res){
@@ -69,8 +101,6 @@ app.post('/addcomment/', function(req, res){
 app.get('/', function (req, res) {
     Post.getAllPosts(function (postsData) {
         postsData.reverse();
-        // req.session.name = '';
-        // res.send(req.session.name);
         res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
     });
 });
