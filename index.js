@@ -13,6 +13,9 @@ const Os = require('os');
 const port = 3000;
 const serverUrl = 'localhost';
 const themeName = 'flatui';
+const blogConfig = Novelist.getConfig();
+const captchaPrivate = blogConfig['captcha private'];
+const captchaPublic = blogConfig['captcha public'];
 
 // config
 app.use(BodyParser.urlencoded({extended: true}));
@@ -25,7 +28,7 @@ app.use(Session({
     cookie: {secure: false,}
 }));
 
-Recaptcha.init('6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd', '6LddTh4UAAAAAEbCc0BvH85DbXBI7AAGDcYnMR_6');
+Recaptcha.init(captchaPublic, captchaPrivate);
 
 
 // routing
@@ -56,6 +59,28 @@ app.get('/dashboard/new', function (req, res) {
     } else {
         res.redirect('/admin');
     }
+});
+
+app.get('/dashboard/edit/:id', function (req, res) {
+    Post.getSinglePost(req.params.id,function(postData){
+        if(req.session.logged){
+            res.render(themeName + '/dashboard/edit', {blogConfig: Novelist.getConfig(), post: postData});
+        } else {
+            res.redirect('/admin');
+        }
+    });
+});
+
+
+app.get('/dashboard/posts', function (req, res) {
+    Post.getAllPosts(function(postsData){
+        if(req.session.logged){
+            postsData.reverse();
+            res.render(themeName + '/dashboard/posts', {blogConfig: Novelist.getConfig(), posts: postsData});
+        } else {
+            res.redirect('/admin');
+        }
+    });
 });
 
 app.get('/login', function (req, res) {

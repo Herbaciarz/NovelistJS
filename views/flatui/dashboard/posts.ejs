@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%=blogConfig.title%> | Write post</title>
+    <title><%=blogConfig.title%> | All posts</title>
     <meta name="description" content="<%=blogConfig.description%>">
     <meta name="keywords" content="<%=blogConfig.keywords%>">
     <meta name="author" content="<%=blogConfig.author%>">
@@ -64,16 +64,20 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="well">
-                            <h1>Write new post</h1>
-                            <form action="/dashboard/new-post" method="post">
-                                <b>Title</b>
-                                <input type="text" class="form-control" name="title">
-                                <b>Tags (separated by comma)</b>
-                                <input type="text" class="form-control" name="tags">
-                                <b>Content</b>
-                                <textarea rows="15">Let's write some brand-new hot post!</textarea>
-                                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Add new</button>
-                            </form>
+                            <h1>All posts</h1>
+                            <div class="list-group">
+                                <% for(var el in posts){ %>
+                                <div href="/dashboard/" class="list-group-item">
+                                    <span class="label label-default"><%=posts[el]['date']%></span>
+                                    <%=posts[el]['title']%>
+                                    <div class="btn-group btn-group-xs pull-right" role="group" aria-label="...">
+                                        <a href="edit/<%=posts[el]['postID']%>" type="button" class="btn btn-primary">Edit</a>
+                                        <a href="../../post/<%=posts[el]['postID']%>" target="_blank" type="button" class="btn btn-success">Show</a>
+                                        <a href="remove/<%=posts[el]['postID']%>" type="button" class="btn btn-danger">Remove</a>
+                                    </div>
+                                </div>
+                                <% }%>
+                            </div>
                         </div>
                     </div>
                 </div>

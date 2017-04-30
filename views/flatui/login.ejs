@@ -47,8 +47,8 @@
 
     <form action="/login" method="post">
         Login<input type="text" class="form-control" placeholder="Login" name="login">
-        Password<input type="text" class="form-control" placeholder="Password" name="password">
-        <div class="g-recaptcha" data-sitekey="6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd" style="margin-top: 20px;"></div>
+        Password<input type="password" class="form-control" placeholder="Password" name="password">
+        <div class="g-recaptcha" data-sitekey="<%=blogConfig['captcha public']%>" style="margin-top: 20px;"></div>
         <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Log In</button>
     </form>
 

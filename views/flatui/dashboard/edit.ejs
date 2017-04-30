@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%=blogConfig.title%> | Write post</title>
+    <title><%=blogConfig.title%> | Edit post</title>
     <meta name="description" content="<%=blogConfig.description%>">
     <meta name="keywords" content="<%=blogConfig.keywords%>">
     <meta name="author" content="<%=blogConfig.author%>">
     <meta name="robots" content="<%=blogConfig.robots%>" />
     <link rel="icon" href="../flatui/img/<%=blogConfig.favicon%>">
-    <link rel="stylesheet" href="../flatui/css/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../flatui/css/flat-ui.css">
+    <link rel="stylesheet" href="../../flatui/css/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../flatui/css/flat-ui.css">
     <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
     <script>tinymce.init({ selector:'textarea' });</script>
     <style>
@@ -64,15 +64,15 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="well">
-                            <h1>Write new post</h1>
-                            <form action="/dashboard/new-post" method="post">
+                            <h1>Edit post</h1>
+                            <form action="/dashboard/edit-post" method="post">
                                 <b>Title</b>
-                                <input type="text" class="form-control" name="title">
+                                <input type="text" class="form-control" name="title" value="<%=post.title%>">
                                 <b>Tags (separated by comma)</b>
-                                <input type="text" class="form-control" name="tags">
+                                <input type="text" class="form-control" name="tags" value="<%=post.tags%>">
                                 <b>Content</b>
-                                <textarea rows="15">Let's write some brand-new hot post!</textarea>
-                                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Add new</button>
+                                <textarea rows="15"><%=post.content%></textarea>
+                                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update</button>
                             </form>
                         </div>
                     </div>
