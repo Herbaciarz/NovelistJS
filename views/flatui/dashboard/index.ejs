@@ -54,6 +54,7 @@
                         <a href="/dashboard/" class="list-group-item">Home</a>
                         <a href="/dashboard/new" class="list-group-item">Write post</a>
                         <a href="/dashboard/posts" class="list-group-item">All posts</a>
+                        <a href="/logout" class="list-group-item">Logout</a>
                     </div>
                 </div>
             </div>
@@ -71,6 +72,15 @@
                     </div>
                     <div class="well">
                         <h1>Blog settings</h1>
+                        <form action="/dashboard/update-settings" method="post">
+                        <%
+                            for(var el in blogConfig){
+                        %>
+                        <b style="text-transform: capitalize;"><%=el%></b>
+                        <input type="text" name="<%=el%>" class="form-control" value="<%=blogConfig[el]%>">
+                        <%}%>
+                            <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update</button>
+                        </form>
                     </div>
                 </div>
             </div>

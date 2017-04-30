@@ -7,6 +7,7 @@ const Post = require('./models/posts');
 const Recaptcha = require('express-recaptcha');
 const Session = require('express-session');
 const Crypto = require('crypto');
+const Os = require('os');
 
 // constants
 const port = 3000;
@@ -43,7 +44,15 @@ app.get('/tag/:tag', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
     if(req.session.logged){
-        res.render(themeName + '/dashboard', {blogConfig: Novelist.getConfig()})
+        res.render(themeName + '/dashboard/index', {blogConfig: Novelist.getConfig(), os: Os, blogConfig: Novelist.getConfig()});
+    } else {
+        res.redirect('/admin');
+    }
+});
+
+app.get('/dashboard/new', function (req, res) {
+    if(req.session.logged){
+        res.render(themeName + '/dashboard/new', {blogConfig: Novelist.getConfig()});
     } else {
         res.redirect('/admin');
     }
