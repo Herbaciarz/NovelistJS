@@ -45,7 +45,38 @@
 <body>
 <div class="container">
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="/dashboard/" class="list-group-item">Home</a>
+                        <a href="/dashboard/new" class="list-group-item">Write post</a>
+                        <a href="/dashboard/posts" class="list-group-item">All posts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="well">
+                        <h1>System information</h1>
+                        System: <%=os.type()%> <%=os.release()%> <%=os.platform()%> <%=os.arch()%><br>
+                        CPU: <%=os.cpus()[0]['model']%><br>
+                        Memory: <%=Math.round(os.freemem()/1024/1024)%> / <%=Math.round(os.totalmem()/1024/1024)%> MB<br>
+                        Home Dir: <%=os.homedir()%><br>
+                        Uptime: <%=Math.round(os.uptime()/60)%> min<br>
+                    </div>
+                    <div class="well">
+                        <h1>Blog settings</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 </body>
