@@ -5,7 +5,7 @@
   "author": "http://github.com/herbaciarz",
   "favicon": "favicon.png",
   "description": "Simple blog engine written in NodeJS",
-  "writter": "Herbaciarz",
+  "writter": "Anonym",
   "logo": "",
   "facebook":"http://facebook.com",
   "twitter":"http://twitter.com",
@@ -13,6 +13,6 @@
   "instagram":"http://instagram.com",
   "behance":"http://behance.com",
   "github":"http://github.com",
-  "captcha public": "6LddTh4UAAAAAIJafHUsE9UvKaEyCwEduNxaeZCd",
-  "captcha private": "6LddTh4UAAAAAEbCc0BvH85DbXBI7AAGDcYnMR_6"
+  "captcha public": "",
+  "captcha private": ""
 }
