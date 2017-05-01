@@ -10,10 +10,10 @@ const Crypto = require('crypto');
 const Os = require('os');
 
 // constants
-const port = 3000;
-const serverUrl = 'localhost';
-const themeName = 'flatui';
 const blogConfig = Novelist.getConfig();
+const port = blogConfig.port;
+const serverUrl = blogConfig.server;
+const themeName = blogConfig.theme;
 const captchaPrivate = blogConfig['captcha private'];
 const captchaPublic = blogConfig['captcha public'];
 
