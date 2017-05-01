@@ -63,10 +63,18 @@ app.get('/dashboard/new', function (req, res) {
 
 app.post('/dashboard/new-post', function (req, res) {
     if(req.session.logged) {
-        let x = new Date();
-        currDate = x.toString();
         Post.addPost(req.session.login, req.body.title, req.body.content, req.body.tags, function () {
-            res.redirect('/dashboard');
+            res.redirect('/dashboard/posts');
+        });
+    } else {
+        res.redirect('/admin');
+    }
+});
+
+app.post('/dashboard/edit-post', function (req, res) {
+    if(req.session.logged) {
+        Post.editPost(req.body.postID,req.body.date,req.body.author, req.body.title, req.body.content, req.body.tags, function () {
+            res.redirect('/dashboard/posts');
         });
     } else {
         res.redirect('/admin');

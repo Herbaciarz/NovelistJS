@@ -118,7 +118,8 @@ module.exports = {
                 author: author,
                 title: title,
                 content: content,
-                tags: tags
+                tags: tags,
+                comments: []
             };
             db.collection('posts').updateOne({'postID': postID}, postData, function (err, result) {
                 Assert.equal(null, err);
