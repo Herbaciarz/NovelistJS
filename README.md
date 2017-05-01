@@ -2,15 +2,25 @@
 Novelistjs is an ultra simple, free, open source, self-hosted blog CMS written in NodeJS.
 
 ### Quick Start
+
 Download files:
+
 ```$ git clone https://github.com/Herbaciarz/novelist-js.git```
+
 or:
+
 ```wget https://github.com/Herbaciarz/novelist-js/archive/master.zip```
+
 Unpack and install dependencies:
+
 ```$ npm install```
+
 File your information in config.json and account.json (key is a login, value in sha256 cipher is a password)
+
 Start the server:
+
 ```$ npm start```
+
 Run it on port 3000.
 
 ### Config Setup
@@ -42,3 +52,4 @@ Run it on port 3000.
 ```
 MIT
 ```
+        
