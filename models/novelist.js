@@ -9,7 +9,12 @@ module.exports = {
         let configFile = JSON.parse(Fs.readFileSync('./config.json', 'utf8'));
         return configFile;
     },
-    
+
+    /**
+     * Set information about website and store in JSON file
+     * @param {array} settings
+     * @param {callback} callback
+     */
     setConfig: function (settings, callback) {
         Fs.writeFileSync('./config.json', JSON.stringify(settings), 'utf8');
         callback();
