@@ -71,6 +71,16 @@ app.post('/dashboard/new-post', function (req, res) {
     }
 });
 
+app.post('/dashboard/update-settings', function (req, res) {
+    if(req.session.logged) {
+        Novelist.setConfig(req.body,function () {
+            res.redirect('/dashboard');
+        });
+    } else {
+        res.redirect('/admin');
+    }
+});
+
 app.post('/dashboard/edit-post', function (req, res) {
     if(req.session.logged) {
         Post.editPost(req.body.postID,req.body.date,req.body.author, req.body.title, req.body.content, req.body.tags, function () {
