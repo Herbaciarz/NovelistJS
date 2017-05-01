@@ -71,7 +71,10 @@
                                 <b>Tags (separated by comma)</b>
                                 <input type="text" class="form-control" name="tags" value="<%=post.tags%>">
                                 <b>Content</b>
-                                <textarea rows="15"><%=post.content%></textarea>
+                                <textarea rows="15" name="content"><%=post.content%></textarea>
+                                <input type="hidden" hidden name="date" value="<%=post.date%>">
+                                <input type="hidden" hidden name="author" value="<%=post.author%>">
+                                <input type="hidden" hidden name="postID" value="<%=post.postID%>">
                                 <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Update</button>
                             </form>
                         </div>
