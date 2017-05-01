@@ -46,7 +46,7 @@ app.get('/tag/:tag', function (req, res) {
 });
 
 app.get('/dashboard', function (req, res) {
-    if(req.session.logged){
+    if(req.session.logged) {
         res.render(themeName + '/dashboard/index', {blogConfig: Novelist.getConfig(), os: Os, blogConfig: Novelist.getConfig()});
     } else {
         res.redirect('/admin');

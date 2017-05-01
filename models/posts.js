@@ -63,7 +63,6 @@ module.exports = {
 
     /**
      *Add new post
-     * @param {string} date
      * @param {string} author
      * @param {string} title
      * @param {string} content
