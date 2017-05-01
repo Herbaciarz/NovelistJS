@@ -14,7 +14,7 @@ Unpack and install dependencies:
 ```
 $ npm install
 ```
-File your information in config.json and account.json (key is a login, value in sha256 cipher is a password)
+Fill your information in config.json and account.json (key is a login, value in SHA256 cipher is a password)
 Start the server:
 ```
 $ npm start
@@ -49,4 +49,3 @@ $ npm start
 ```
 MIT
 ```
-        
