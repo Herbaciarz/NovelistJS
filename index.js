@@ -61,6 +61,18 @@ app.get('/dashboard/new', function (req, res) {
     }
 });
 
+app.post('/dashboard/new-post', function (req, res) {
+    if(req.session.logged) {
+        let x = new Date();
+        currDate = x.toString();
+        Post.addPost(req.session.login, req.body.title, req.body.content, req.body.tags, function () {
+            res.redirect('/dashboard');
+        });
+    } else {
+        res.redirect('/admin');
+    }
+});
+
 app.get('/dashboard/edit/:id', function (req, res) {
     Post.getSinglePost(req.params.id,function(postData){
         if(req.session.logged){
@@ -97,7 +109,9 @@ app.post('/login', function (req, res) {
         if (!error) {
             console.log('Captcha approved');
             let password = Crypto.createHash('sha256').update(req.body.password).digest('hex');
-            req.session.logged = Novelist.tryLogin(req.body.login, password);
+            if((req.session.logged = Novelist.tryLogin(req.body.login, password))){
+                req.session.login = req.body.login;
+            }
             res.redirect('/admin');
         } else {
             res.redirect('/admin');
@@ -115,6 +129,7 @@ app.get('/admin', function (req, res) {
 
 app.get('/logout', function (req, res) {
     req.session.logged = null;
+    req.session.login = null;
     res.redirect('/login');
 });
 

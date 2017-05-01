@@ -71,13 +71,17 @@ module.exports = {
      * @param {callback} callback
      */
 
-    addPost: function (date, author, title, content, tags, callback) {
+    addPost: function (author, title, content, tags, callback) {
         Mongo.connect(mongoUrl, function (err, db) {
             Assert.equal(null, err);
             AutoIncrement.getNextSequence(db, 'posts', function(err, autoIndex){
                 Assert.equal(null, err);
+
+                let now = new Date();
+                date = now.toLocaleString("en-US");
+
                 let postData = {
-                    postID: autoIndex,
+                    postID: autoIndex+'',
                     date: date,
                     author: author,
                     title: title,
