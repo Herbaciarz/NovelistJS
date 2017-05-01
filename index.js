@@ -83,6 +83,15 @@ app.get('/dashboard/edit/:id', function (req, res) {
     });
 });
 
+app.get('/dashboard/remove/:id', function (req, res) {
+    if(req.session.logged){
+        Post.removePost(req.params.id,function () {
+            res.redirect('/dashboard/posts');
+        });
+    } else {
+        res.redirect('/admin');
+    }
+});
 
 app.get('/dashboard/posts', function (req, res) {
     Post.getAllPosts(function(postsData){
