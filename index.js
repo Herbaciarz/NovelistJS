@@ -1,16 +1,16 @@
 // packages and dependencies
-const Express = require('express');
-const app = Express();
-const BodyParser = require('body-parser');
-const Novelist = require('./models/novelist');
-const Post = require('./models/posts');
-const Recaptcha = require('express-recaptcha');
-const Session = require('express-session');
-const Crypto = require('crypto');
-const Os = require('os');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const novelist = require('./models/novelist');
+const post = require('./models/posts');
+const recaptcha = require('express-recaptcha');
+const session = require('express-session');
+const crypto = require('crypto');
+const os = require('os');
 
 // constants
-const blogConfig = Novelist.getConfig();
+const blogConfig = novelist.getConfig();
 const port = blogConfig.port;
 const serverUrl = blogConfig.server;
 const themeName = blogConfig.theme;
@@ -18,36 +18,36 @@ const captchaPrivate = blogConfig['captcha private'];
 const captchaPublic = blogConfig['captcha public'];
 
 // config
-app.use(BodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-app.use(Express.static('public'));
-app.use(Session({
+app.use(express.static('public'));
+app.use(session({
     secret: 'novelistjs',
     resave: true,
     saveUninitialized: true,
     cookie: {secure: false,}
 }));
 
-Recaptcha.init(captchaPublic, captchaPrivate);
+recaptcha.init(captchaPublic, captchaPrivate);
 
 
 // routing
 app.get('/post/:id', function (req, res) {
-    Post.getSinglePost(req.params.id, function (postData) {
-        res.render(themeName + '/post', {blogConfig: Novelist.getConfig(), post: postData, postID: req.params.id});
+    post.getSinglePost(req.params.id, function (postData) {
+        res.render(themeName + '/post', {blogConfig: novelist.getConfig(), post: postData, postID: req.params.id});
     });
 });
 
 app.get('/tag/:tag', function (req, res) {
-    Post.getAllPostsWithTag(req.params.tag, function (postsData) {
+    post.getAllPostsWithTag(req.params.tag, function (postsData) {
         postsData.reverse();
-        res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
+        res.render(themeName + '/index', {blogConfig: novelist.getConfig(), posts: postsData});
     });
 });
 
 app.get('/dashboard', function (req, res) {
     if(req.session.logged) {
-        res.render(themeName + '/dashboard/index', {blogConfig: Novelist.getConfig(), os: Os, blogConfig: Novelist.getConfig()});
+        res.render(themeName + '/dashboard/index', {blogConfig: novelist.getConfig(), os: os, blogConfig: novelist.getConfig()});
     } else {
         res.redirect('/admin');
     }
@@ -55,7 +55,7 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/dashboard/new', function (req, res) {
     if(req.session.logged){
-        res.render(themeName + '/dashboard/new', {blogConfig: Novelist.getConfig()});
+        res.render(themeName + '/dashboard/new', {blogConfig: novelist.getConfig()});
     } else {
         res.redirect('/admin');
     }
@@ -63,7 +63,7 @@ app.get('/dashboard/new', function (req, res) {
 
 app.post('/dashboard/new-post', function (req, res) {
     if(req.session.logged) {
-        Post.addPost(req.session.login, req.body.title, req.body.content, req.body.tags, function () {
+        post.addPost(req.session.login, req.body.title, req.body.content, req.body.tags, function () {
             res.redirect('/dashboard/posts');
         });
     } else {
@@ -73,7 +73,7 @@ app.post('/dashboard/new-post', function (req, res) {
 
 app.post('/dashboard/update-settings', function (req, res) {
     if(req.session.logged) {
-        Novelist.setConfig(req.body,function () {
+        novelist.setConfig(req.body,function () {
             res.redirect('/dashboard');
         });
     } else {
@@ -83,7 +83,7 @@ app.post('/dashboard/update-settings', function (req, res) {
 
 app.post('/dashboard/edit-post', function (req, res) {
     if(req.session.logged) {
-        Post.editPost(req.body.postID,req.body.date,req.body.author, req.body.title, req.body.content, req.body.tags, function () {
+        post.editPost(req.body.postID,req.body.date,req.body.author, req.body.title, req.body.content, req.body.tags, function () {
             res.redirect('/dashboard/posts');
         });
     } else {
@@ -92,9 +92,9 @@ app.post('/dashboard/edit-post', function (req, res) {
 });
 
 app.get('/dashboard/edit/:id', function (req, res) {
-    Post.getSinglePost(req.params.id,function(postData){
+    post.getSinglePost(req.params.id,function(postData){
         if(req.session.logged){
-            res.render(themeName + '/dashboard/edit', {blogConfig: Novelist.getConfig(), post: postData});
+            res.render(themeName + '/dashboard/edit', {blogConfig: novelist.getConfig(), post: postData});
         } else {
             res.redirect('/admin');
         }
@@ -103,7 +103,7 @@ app.get('/dashboard/edit/:id', function (req, res) {
 
 app.get('/dashboard/remove/:id', function (req, res) {
     if(req.session.logged){
-        Post.removePost(req.params.id,function () {
+        post.removePost(req.params.id,function () {
             res.redirect('/dashboard/posts');
         });
     } else {
@@ -112,10 +112,10 @@ app.get('/dashboard/remove/:id', function (req, res) {
 });
 
 app.get('/dashboard/posts', function (req, res) {
-    Post.getAllPosts(function(postsData){
+    post.getAllPosts(function(postsData){
         if(req.session.logged){
             postsData.reverse();
-            res.render(themeName + '/dashboard/posts', {blogConfig: Novelist.getConfig(), posts: postsData});
+            res.render(themeName + '/dashboard/posts', {blogConfig: novelist.getConfig(), posts: postsData});
         } else {
             res.redirect('/admin');
         }
@@ -127,16 +127,16 @@ app.get('/login', function (req, res) {
     if(req.session.logged){
         res.redirect('/dashboard');
     } else {
-        res.render(themeName + '/login', {blogConfig: Novelist.getConfig()});
+        res.render(themeName + '/login', {blogConfig: novelist.getConfig()});
     }
 });
 
 app.post('/login', function (req, res) {
-    Recaptcha.verify(req, function(error) {
+    recaptcha.verify(req, function(error) {
         if (!error) {
             console.log('Captcha approved');
-            let password = Crypto.createHash('sha256').update(req.body.password).digest('hex');
-            if((req.session.logged = Novelist.tryLogin(req.body.login, password))){
+            let password = crypto.createHash('sha256').update(req.body.password).digest('hex');
+            if((req.session.logged = novelist.tryLogin(req.body.login, password))){
                 req.session.login = req.body.login;
             }
             res.redirect('/admin');
@@ -161,10 +161,10 @@ app.get('/logout', function (req, res) {
 });
 
 app.post('/addcomment/', function(req, res){
-    Recaptcha.verify(req, function(error) {
+    recaptcha.verify(req, function(error) {
         if (!error) {
             console.log('Captcha approved');
-            Post.addComment(req.body.postID, req.body.author, req.body.content, req.connection.remoteAddress, function(){
+            post.addComment(req.body.postID, req.body.author, req.body.content, req.connection.remoteAddress, function(){
                 res.redirect('/post/' + req.body.postID);
             });
         } else {
@@ -175,9 +175,9 @@ app.post('/addcomment/', function(req, res){
 });
 
 app.get('/', function (req, res) {
-    Post.getAllPosts(function (postsData) {
+    post.getAllPosts(function (postsData) {
         postsData.reverse();
-        res.render(themeName + '/index', {blogConfig: Novelist.getConfig(), posts: postsData});
+        res.render(themeName + '/index', {blogConfig: novelist.getConfig(), posts: postsData});
     });
 });
 
