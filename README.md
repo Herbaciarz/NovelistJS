@@ -18,7 +18,7 @@ Replace url to your mongo database in post.js:
 ```
 const mongoUrl = 'mongodb://localhost:27017/test'
 ```
-Fill your information in config.json and account.json (key is a login, value in SHA256 cipher is a password)
+Fill your information in config.json and account.json (key is a login, value in SHA256 hash is a password)
 Start the server:
 ```
 $ npm start
