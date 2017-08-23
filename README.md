@@ -4,11 +4,11 @@ Novelistjs is an ultra simple, free, open source, self-hosted blog CMS written i
 ### Quick Start
 Download files:
 ```
-$ git clone git://github.com/Herbaciarz/novelist-js.git
+$ git clone git://github.com/pilotpirxie/novelist-js.git
 ```
 or:
 ```
-$ wget https://github.com/Herbaciarz/novelist-js/archive/master.zip
+$ wget https://github.com/pilotpirxie/novelist-js/archive/master.zip
 ```
 Unpack and install dependencies:
 ```
