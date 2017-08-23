@@ -12,7 +12,7 @@
     "cms",
     "nodejs"
   ],
-  "author": "Herbaciarz",
+  "author": "pilotpirxie",
   "license": "MIT",
   "dependencies": {
     "assert": "^1.4.1",
